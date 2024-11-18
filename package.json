@@ -1,0 +1,22 @@
+{
+    "name": "nestjs-docker-launcher",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "node dist/main.js",
+        "build": "nest build",
+        "dev": "nest start --watch"
+    },
+    "dependencies": {
+        "@nestjs/common": "^8.4.7",
+        "@nestjs/config": "^2.0.0",
+        "@nestjs/core": "^8.4.7",
+        "@nestjs/platform-express": "^10.4.8",
+        "express": "^4.17.1",
+        "rxjs": "^7.0.0"
+    },
+    "devDependencies": {
+        "@nestjs/cli": "^8.2.8",
+        "@types/express": "^5.0.0",
+        "typescript": "^4.9.5"
+    }
+}
