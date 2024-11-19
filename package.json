@@ -1,5 +1,5 @@
 {
-    "name": "nestjs-docker-launcher",
+    "name": "term-app-launcher",
     "version": "1.0.0",
     "scripts": {
         "start": "node dist/main.js",
@@ -10,7 +10,7 @@
         "@nestjs/common": "^8.4.7",
         "@nestjs/config": "^2.0.0",
         "@nestjs/core": "^8.4.7",
-        "@nestjs/platform-express": "^10.4.8",
+        "@nestjs/platform-express": "^8.4.7",
         "express": "^4.17.1",
         "rxjs": "^7.0.0"
     },

@@ -15,7 +15,6 @@ export class AppController {
                 return res.status(400).json({ error: 'PORT_API and PORT_WEB are required' });
             }
 
-            // Dockerビルドコマンドを実行
             const buildCommand = `docker build -t term-app --build-arg PORT=${portApi} .`;
             exec(buildCommand, (buildErr, buildStdout, buildStderr) => {
                 if (buildErr) {
@@ -23,7 +22,6 @@ export class AppController {
                     return res.status(500).json({ error: buildErr.message });
                 }
 
-                // Docker実行コマンドを実行
                 const runCommand = `docker run -d -p ${portApi}:${portApi} -p ${portWeb}:3000 -it term-app`;
                 exec(runCommand, (runErr, runStdout, runStderr) => {
                     if (runErr) {
@@ -35,7 +33,7 @@ export class AppController {
                 });
             });
         } catch (e) {
-            const error = e as Error;  // 型をキャスト
+            const error = e as Error;
             return res.status(500).json({ error: error.message });
         }
     }
