@@ -1,8 +1,10 @@
 {
     "name": "term-app-launcher",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "scripts": {
         "start": "node dist/main.js",
+        "start:pm2": "pm2 start dist/main.js --name nest-server",
+        "stop:pm2": "pm2 stop nest-server",
         "build": "nest build",
         "dev": "nest start --watch"
     },
@@ -12,6 +14,7 @@
         "@nestjs/core": "^8.4.7",
         "@nestjs/platform-express": "^8.4.7",
         "express": "^4.17.1",
+        "pm2": "^5.4.3",
         "rxjs": "^7.0.0"
     },
     "devDependencies": {

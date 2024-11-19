@@ -24,7 +24,11 @@ This project provides an API using NestJS to launch Docker containers with speci
 4. **Run the production server**
    Start the server for production:
    ```sh
-   pnpm run start &
+   pnpm run start
+
+   # pm2
+   # pnpm run start:pm2
+   # pnpm run stop:pm2
    ```
 
 ## Running the Docker API
