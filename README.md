@@ -6,25 +6,25 @@ This project provides an API using NestJS to launch Docker containers with speci
 
 1. **Install dependencies**
    ```sh
-   npm install
+   pnpm install
    ```
 
 2. **Build the project**
    Compile TypeScript to generate the `dist` folder:
    ```sh
-   npm run build
+   pnpm run build
    ```
 
 3. **Run the development server**
    Run the server in watch mode for development:
    ```sh
-   npm run dev
+   pnpm run dev
    ```
 
 4. **Run the production server**
    Start the server for production:
    ```sh
-   npm run start
+   pnpm run start &
    ```
 
 ## Running the Docker API
