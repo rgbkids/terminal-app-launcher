@@ -24,12 +24,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const child_process_1 = require("child_process");
+function checkPortInUse(port) {
+    return new Promise((resolve) => {
+        (0, child_process_1.exec)(`lsof -i:${port} | grep LISTEN`, (err, stdout) => {
+            resolve(stdout.trim().length > 0);
+        });
+    });
+}
 let AppController = class AppController {
     runDocker(portApi, portWeb, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 if (!portApi || !portWeb) {
                     return res.status(400).json({ error: 'PORT_API and PORT_WEB are required' });
+                }
+                const isPortApiInUse = yield checkPortInUse(portApi);
+                const isPortWebInUse = yield checkPortInUse(portWeb);
+                if (isPortApiInUse || isPortWebInUse) {
+                    return res.status(400).json({
+                        error: 'Specified ports are already in use',
+                        details: {
+                            portApi: isPortApiInUse ? 'in use' : 'available',
+                            portWeb: isPortWebInUse ? 'in use' : 'available',
+                        },
+                    });
                 }
                 const buildCommand = `docker build -t term-app --build-arg PORT=${portApi} .`;
                 (0, child_process_1.exec)(buildCommand, (buildErr, buildStdout, buildStderr) => {

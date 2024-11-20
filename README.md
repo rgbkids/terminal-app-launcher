@@ -26,7 +26,7 @@ This project provides an API using NestJS to launch Docker containers with speci
    ```sh
    pnpm run start
 
-   # pm2
+   # # pm2
    # pnpm run start:pm2
    # pnpm run stop:pm2
    ```

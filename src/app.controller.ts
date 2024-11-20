@@ -2,6 +2,14 @@ import { Controller, Get, Query, Res } from '@nestjs/common';
 import { exec } from 'child_process';
 import { Response } from 'express';
 
+function checkPortInUse(port: string): Promise<boolean> {
+    return new Promise((resolve) => {
+        exec(`lsof -i:${port} | grep LISTEN`, (err, stdout) => {
+            resolve(stdout.trim().length > 0);
+        });
+    });
+}
+
 @Controller()
 export class AppController {
     @Get('/run-docker')
@@ -15,6 +23,21 @@ export class AppController {
                 return res.status(400).json({ error: 'PORT_API and PORT_WEB are required' });
             }
 
+            // ポートが使用中かどうかを確認
+            const isPortApiInUse = await checkPortInUse(portApi);
+            const isPortWebInUse = await checkPortInUse(portWeb);
+
+            if (isPortApiInUse || isPortWebInUse) {
+                return res.status(400).json({
+                    error: 'Specified ports are already in use',
+                    details: {
+                        portApi: isPortApiInUse ? 'in use' : 'available',
+                        portWeb: isPortWebInUse ? 'in use' : 'available',
+                    },
+                });
+            }
+
+            // Dockerコマンドの実行
             const buildCommand = `docker build -t term-app --build-arg PORT=${portApi} .`;
             exec(buildCommand, (buildErr, buildStdout, buildStderr) => {
                 if (buildErr) {
