@@ -14,6 +14,13 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule, {
         httpsOptions: sslOptions,
     });
+
+    app.enableCors({
+        origin: 'https://school.vteacher.biz',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        credentials: true,
+    });
+
     const configService = app.get(ConfigService);
     const port = configService.get<number>('PORT') || 443;
     await app.listen(port);
