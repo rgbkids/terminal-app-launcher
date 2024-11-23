@@ -47,6 +47,11 @@ function bootstrap() {
         const app = yield core_1.NestFactory.create(app_module_1.AppModule, {
             httpsOptions: sslOptions,
         });
+        app.enableCors({
+            origin: 'https://school.vteacher.biz',
+            methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+            credentials: true,
+        });
         const configService = app.get(config_1.ConfigService);
         const port = configService.get('PORT') || 443;
         yield app.listen(port);
