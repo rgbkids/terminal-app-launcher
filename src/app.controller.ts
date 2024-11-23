@@ -23,7 +23,6 @@ export class AppController {
                 return res.status(400).json({ error: 'PORT_API and PORT_WEB are required' });
             }
 
-            // ポートが使用中かどうかを確認
             const isPortApiInUse = await checkPortInUse(portApi);
             const isPortWebInUse = await checkPortInUse(portWeb);
 
@@ -37,7 +36,6 @@ export class AppController {
                 });
             }
 
-            // Dockerコマンドの実行
             const buildCommand = `docker build -t term-app --build-arg PORT=${portApi} .`;
             exec(buildCommand, (buildErr, buildStdout, buildStderr) => {
                 if (buildErr) {

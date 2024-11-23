@@ -1,4 +1,4 @@
-# NestJS Docker Launcher
+# Docker Launcher
 
 This project provides an API using NestJS to launch Docker containers with specified port configurations. The guide below explains how to set up and use this project.
 
@@ -37,6 +37,8 @@ To run a Docker container remotely, send a `GET` request to the `/run-docker` en
 
 ```sh
 curl "http://localhost:8080/run-docker?PORT_API=8081&PORT_WEB=3001"
+
+# curl "https://example.com:8080/run-docker?PORT_API=8081&PORT_WEB=3001"
 ```
 
 ### NOTE

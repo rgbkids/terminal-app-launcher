@@ -13,8 +13,8 @@ RUN git clone -b feat/ssl https://github.com/rgbkids/terminal-app.git .
 # Create the SSL directory and copy the SSL files
 RUN mkdir -p /app/ssl
 COPY ssl/private.key /app/ssl/private.key
-COPY ssl/vteacher_biz.crt /app/ssl/vteacher_biz.crt
-COPY ssl/vteacher_biz.ca-bundle /app/ssl/vteacher_biz.ca-bundle
+COPY ssl/term-app.crt /app/ssl/term-app.crt
+COPY ssl/term-app.ca-bundle /app/ssl/term-app.ca-bundle
 
 # Install packages
 RUN npm install --legacy-peer-deps
@@ -26,12 +26,6 @@ ENV PORT=${PORT}
 # Replace the default port with the specified PORT value in the script
 RUN sed -i "s/443/${PORT}/g" src/server.ts
 RUN sed -i 's/HOME_DIR = ""/HOME_DIR = "\/app\/terminal-app\/vercel\/examples\/nextjs"/g' src/server.ts
-
-# Create the SSL directory and copy the SSL files
-RUN mkdir -p /app/ssl
-COPY ssl/private.key /app/ssl/private.key
-COPY ssl/vteacher_biz.crt /app/ssl/vteacher_biz.crt
-COPY ssl/vteacher_biz.ca-bundle /app/ssl/vteacher_biz.ca-bundle
 
 # Build the application
 RUN npm run build
