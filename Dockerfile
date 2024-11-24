@@ -34,6 +34,8 @@ RUN npm run build
 WORKDIR /app/terminal-app/vercel
 RUN git clone -b main https://github.com/vercel/vercel.git .
 WORKDIR /app
+COPY ssl/nextjs/package.json /app/terminal-app/vercel/examples/nextjs/package.json
+COPY ssl/nextjs/server.js /app/terminal-app/vercel/examples/nextjs/server.js
 
 # Start the server when the container is launched
 CMD ["npm", "start"]
